@@ -1,0 +1,31 @@
+.modal-user-container {
+    .modal-header{
+        button{
+            background: transparent !important;
+            color: #fff !important;
+            border:none;
+            font-size: 25px;
+        }
+    }
+  .modal-user-body {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    .input-container {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        padding: 0 15px;
+      &.max-full-width{
+        width: 100%;
+      }
+    }
+    input {
+      border-radius: 3px;
+      border: 1px solid black;
+      height: 30px;
+      outline: none;
+      padding: 0 10px;
+    }
+  }
+}
