@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers, createNewUserService } from '../../services/userService';
+import { getAllUsers, createNewUserService, deleteUserService } from '../../services/userService';
 import ModalUser from './ModalUser';
 class UserManage extends Component {
 
@@ -41,7 +41,7 @@ class UserManage extends Component {
             let response = await createNewUserService(data);
             if (response && response.errCode !== 0) {
                 alert(response.errMessage);
-            } 
+            }
             else {
                 await this.getRenderAllUsers();
                 this.setState({
@@ -51,7 +51,19 @@ class UserManage extends Component {
         } catch (error) {
             console.log(error)
         }
-   }
+    }
+    handleDeleteUser = async (user) => {
+        try {
+            let res = await deleteUserService(user.id)
+            if(res && res.errCode ===0){
+                await this.getRenderAllUsers();
+            }else{
+                alert(res.errMessage)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
     render() {
         let arrUsers = this.state.arrUsers;
         return (
@@ -89,7 +101,7 @@ class UserManage extends Component {
                                             <td>{item.address}</td>
                                             <td>
                                                 <button className="btn-edit"><i className="fas fa-edit"></i></button>
-                                                <button className="btn-delete"><i className="fas fa-trash"></i></button>
+                                                <button className="btn-delete" onClick={() => { this.handleDeleteUser(item) }}><i className="fas fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     </>
