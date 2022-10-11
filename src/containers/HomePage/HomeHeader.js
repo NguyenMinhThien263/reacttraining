@@ -7,8 +7,6 @@ import { changeLanguageApp } from '../../store/actions'
 class HomeHeader extends Component {
     changeLanguage = (language) => {
         this.props.changeLanguageAppRedux(language);
-        // console.log();
-        //fire redux event: actions
     }
     render() {
         let language = this.props.language
