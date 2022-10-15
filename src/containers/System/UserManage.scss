@@ -1,12 +1,12 @@
 #customers {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family    : Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width          : 100%;
 }
 
 #customers td,
 #customers th {
-  border: 1px solid #ddd;
+  border : 1px solid #ddd;
   padding: 8px;
 }
 
@@ -19,32 +19,35 @@
 }
 
 #customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
+  padding-top     : 12px;
+  padding-bottom  : 12px;
+  text-align      : left;
   background-color: #04aa6d;
-  color: white;
+  color           : white;
 }
 
 .btn-edit {
-  width: 50px;
-  border: none;
-  outline: none;
+  width     : 50px;
+  border    : none;
+  outline   : none;
   background: transparent;
-  color: coral;
+  color     : coral;
+
   &:hover {
     background-color: transparent !important;
-    color: coral !important;
+    color           : coral !important;
   }
 }
+
 .btn-delete {
-  width: 50px;
-  border: none;
-  outline: none;
+  width     : 50px;
+  border    : none;
+  outline   : none;
   background: transparent;
-  color: rgb(228, 64, 64);
+  color     : rgb(228, 64, 64);
+
   &:hover {
     background-color: transparent !important;
-    color: rgb(228, 64, 64) !important;
+    color           : rgb(228, 64, 64) !important;
   }
 }
