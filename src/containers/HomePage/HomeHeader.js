@@ -3,10 +3,16 @@ import { connect } from 'react-redux';
 import './HomeHeader.scss';
 import { FormattedMessage } from 'react-intl';
 import { LANGUAGES } from '../../utils';
-import { changeLanguageApp } from '../../store/actions'
+import { changeLanguageApp } from '../../store/actions';
+import { withRouter } from "react-router-dom";
 class HomeHeader extends Component {
     changeLanguage = (language) => {
         this.props.changeLanguageAppRedux(language);
+    }
+    returnToHome = () => {
+        if (this.props.history) {
+            this.props.history.push(`/home`);
+        }
     }
     render() {
         let language = this.props.language
@@ -16,7 +22,9 @@ class HomeHeader extends Component {
                     <div className="home-header-content">
                         <div className="left-content">
                             <i className="side-bar fas fa-bars"></i>
-                            <div className="header-logo"></div>
+                            <div className="header-logo"
+                                onClick={() => this.returnToHome()}
+                            ></div>
                         </div>
                         <div className="center-content">
                             <div className="content-container">
@@ -46,48 +54,50 @@ class HomeHeader extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="home-header-banner">
-                    <div className="content-up">
-                        <div className="banner-title">
-                            <span className="title-content"><FormattedMessage id="banner.title" /></span>
-                            <br /><span className="sub-title-content"><FormattedMessage id="banner.subTitle" /></span>
+                {this.props.isShowBanner === true &&
+                    <div className="home-header-banner">
+                        <div className="content-up">
+                            <div className="banner-title">
+                                <span className="title-content"><FormattedMessage id="banner.title" /></span>
+                                <br /><span className="sub-title-content"><FormattedMessage id="banner.subTitle" /></span>
+                            </div>
+                            <div className="banner-search">
+                                <i className="fas fa-search"></i>
+                                <input className="input-search" type="text"
+                                    placeholder="Tìm kiếm khoa khám bệnh"
+                                />
+                            </div>
                         </div>
-                        <div className="banner-search">
-                            <i className="fas fa-search"></i>
-                            <input className="input-search" type="text"
-                                placeholder="Tìm kiếm khoa khám bệnh"
-                            />
+                        <div className="content-down">
+                            <div className="banner-options">
+                                <div className="option-item">
+                                    <div className="item-icon"><i className="far fa-hospital"></i></div>
+                                    <div className="item-text"><FormattedMessage id="banner.speciality" /></div>
+                                </div>
+                                <div className="option-item">
+                                    <div className="item-icon"><i className="fas fa-mobile-alt"></i></div>
+                                    <div className="item-text"><FormattedMessage id="banner.remote" /></div>
+                                </div>
+                                <div className="option-item">
+                                    <div className="item-icon"><i className="fas fa-stethoscope"></i></div>
+                                    <div className="item-text"><FormattedMessage id="banner.general" /></div>
+                                </div>
+                                <div className="option-item">
+                                    <div className="item-icon"><i className="fas fa-x-ray"></i></div>
+                                    <div className="item-text"><FormattedMessage id="banner.analysis" /></div>
+                                </div>
+                                <div className="option-item">
+                                    <div className="item-icon"><i className="fas fa-magnet"></i></div>
+                                    <div className="item-text"><FormattedMessage id="banner.mentalHealth" /></div>
+                                </div>
+                                <div className="option-item">
+                                    <div className="item-icon"><i className="fas fa-syringe"></i></div>
+                                    <div className="item-text"><FormattedMessage id="banner.dentistry" /></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className="content-down">
-                        <div className="banner-options">
-                            <div className="option-item">
-                                <div className="item-icon"><i className="far fa-hospital"></i></div>
-                                <div className="item-text"><FormattedMessage id="banner.speciality" /></div>
-                            </div>
-                            <div className="option-item">
-                                <div className="item-icon"><i className="fas fa-mobile-alt"></i></div>
-                                <div className="item-text"><FormattedMessage id="banner.remote" /></div>
-                            </div>
-                            <div className="option-item">
-                                <div className="item-icon"><i className="fas fa-stethoscope"></i></div>
-                                <div className="item-text"><FormattedMessage id="banner.general" /></div>
-                            </div>
-                            <div className="option-item">
-                                <div className="item-icon"><i className="fas fa-x-ray"></i></div>
-                                <div className="item-text"><FormattedMessage id="banner.analysis" /></div>
-                            </div>
-                            <div className="option-item">
-                                <div className="item-icon"><i className="fas fa-magnet"></i></div>
-                                <div className="item-text"><FormattedMessage id="banner.mentalHealth" /></div>
-                            </div>
-                            <div className="option-item">
-                                <div className="item-icon"><i className="fas fa-syringe"></i></div>
-                                <div className="item-text"><FormattedMessage id="banner.dentistry" /></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
             </>
         );
     }
@@ -107,4 +117,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeHeader));
