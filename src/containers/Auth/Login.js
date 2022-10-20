@@ -37,7 +37,6 @@ class Login extends Component {
             }
             if (data && data.errCode === 0) {
                 this.props.userLoginSuccess(data.user)
-                console.log("Success");
             }
         } catch (error) {
             let errData = error.response.data;
@@ -54,6 +53,11 @@ class Login extends Component {
         this.setState({
             isTogglePassword: !this.state.isTogglePassword
         })
+    }
+    handleKeyDown = (e) => {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            this.handleLogin();
+        }
     }
     render() {
         return (
@@ -82,6 +86,7 @@ class Login extends Component {
                                     name="password"
                                     value={this.state.password}
                                     onChange={(e) => this.handleOnChangeInput(e)}
+                                    onKeyDown={(e) => this.handleKeyDown(e)}
                                 />
                                 <span
                                     className='toggleEye'

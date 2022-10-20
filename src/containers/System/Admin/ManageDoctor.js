@@ -41,7 +41,6 @@ class ManageDoctor extends Component {
                 result.push(object);
             })
         }
-        console.log('check result', result);
         return result;
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -93,7 +92,6 @@ class ManageDoctor extends Component {
                 hasOldData: false,
             });
         }
-        console.log('check change ', res);
     };
     handleOnChangeDesc = (event) => {
         this.setState({

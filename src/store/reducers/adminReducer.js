@@ -6,8 +6,9 @@ const initialState = {
     roles: [],
     positions: [],
     users: [],
-    topDoctors:[],
+    topDoctors: [],
     allDoctors: [],
+    allScheduleTime: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -97,7 +98,19 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...copyState,
             }
-            
+        case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_SUCCESS:
+            copyState = { ...state };
+            copyState.allScheduleTime = action.dataTime;
+            return {
+                ...copyState,
+            }
+        case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED:
+            copyState = { ...state };
+            copyState.allScheduleTime = [];
+            return {
+                ...copyState,
+            }
+
         default:
             return state;
     }

@@ -21,15 +21,12 @@ class DetailDoctor extends Component {
                     detailDoctor: res.data
                 });
             }
-            console.log('check res', res);
         }
     }
     componentDidUpdate(prevProps, prevState) {
 
     }
     render() {
-        console.log(this.props.match.params.id);
-        console.log('check state', this.state);
         let { detailDoctor } = this.state;
         let { language } = this.props;
         let nameEn = '';

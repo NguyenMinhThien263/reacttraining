@@ -82,7 +82,6 @@ class UserRedux extends Component {
         let file = data[0];
         if (file) {
             let base64 = await CommonUtils.getBase64(file);
-            console.log("check image", base64);
             let imageURL = URL.createObjectURL(file);
             this.setState({
                 previewImgURL: imageURL,
@@ -147,8 +146,6 @@ class UserRedux extends Component {
         copyState[id] = event.target.value;
         this.setState({
             ...copyState
-        }, () => {
-            console.log('check on change state', this.state);
         })
     }
     handleEditUserFromParent = (user) => {
