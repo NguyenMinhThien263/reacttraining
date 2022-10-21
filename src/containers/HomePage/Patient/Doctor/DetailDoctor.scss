@@ -40,6 +40,21 @@
         background   : #f9f9f9;
     }
 
+    .schedule-doctor {
+        margin    : 0 100px;
+        display   : flex;
+        padding   : 10px 0;
+        min-height: 200px;
+
+        .content-left {
+            width: 50%;
+        }
+
+        .content-right {
+            width: 50%;
+        }
+    }
+
     .comment-doctor {
         height: 50px;
     }

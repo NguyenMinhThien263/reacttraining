@@ -9,6 +9,7 @@ import DatePicker from '../../../components/Input/DatePicker';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import _ from 'lodash';
+import { saveBulkScheduleDoctor } from '../../../services/userService'
 
 class ManageSchedule extends Component {
     constructor(props) {
@@ -84,7 +85,7 @@ class ManageSchedule extends Component {
             });
         }
     }
-    handleSaveSchedule = () => {
+    handleSaveSchedule = async () => {
         let { rangeTime, selectedDoctor, currentDate } = this.state;
         let result = [];
         if (!currentDate) {
@@ -95,7 +96,8 @@ class ManageSchedule extends Component {
             toast.error("Invalid selected doctor!");
             return;
         }
-        let formatDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        // let formatDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        let formatDate = new Date(currentDate).getTime();
         if (rangeTime && rangeTime.length > 0) {
             let selectedTime = rangeTime.filter(item => item.isSelected === true);
             if (selectedTime && selectedTime.length > 0) {
@@ -104,7 +106,7 @@ class ManageSchedule extends Component {
                     object = {
                         doctorId: selectedDoctor.value,
                         date: formatDate,
-                        time: item.keyMap,
+                        timeType: item.keyMap,
                     }
                     result.push(object);
                 })
@@ -113,10 +115,22 @@ class ManageSchedule extends Component {
                 return;
             }
         }
+        let res = await saveBulkScheduleDoctor({
+            arrSchedules: result,
+            doctorId: selectedDoctor.value,
+            date: formatDate
+        });
+        if (res && res.errCode === 0) {
+            toast.success(" Create schedule success!");
+        } else {
+            toast.error(" Create schedule fail!");
+        }
+        console.log("check res bulk ", res);
     }
     render() {
         let { rangeTime } = this.state;
         let { language } = this.props;
+        let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
         return (
             <div className="manage-schedule-container">
                 <div className="m-s-title">
@@ -141,7 +155,7 @@ class ManageSchedule extends Component {
                             <DatePicker className="form-control"
                                 onChange={this.handleOnChangeDatePicker}
                                 value={this.state.currentDate}
-                                minDate={new Date()}
+                                minDate={yesterday}
                             />
                         </div>
                         <div className="col-12 pick-hour-container">

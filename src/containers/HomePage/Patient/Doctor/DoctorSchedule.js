@@ -1,0 +1,158 @@
+import React, { Component } from 'react';
+import { connect } from "react-redux";
+import '../Doctor/DoctorSchedule.scss';
+import moment from 'moment';
+import { FormattedMessage } from 'react-intl';
+import localization from 'moment/locale/vi';
+import { LANGUAGES } from '../../../../utils';
+import { getScheduleDoctorByDate } from '../../../../services/userService'
+class DoctorSchedule extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            allDays: [],
+            allAvailableTime: []
+        };
+    }
+    async componentDidMount() {
+        let { language } = this.props;
+        let allDays = this.getArrDays(language);
+        if (allDays && allDays.length > 0) {
+            let res = await getScheduleDoctorByDate(this.props.doctorId, allDays[0].value);
+            this.setState({
+                allDays: allDays,
+                allAvailableTime: res.data ? res.data : [],
+            });
+        }
+
+    }
+    async componentDidUpdate(prevProps, prevState) {
+        if (prevProps.language !== this.props.language) {
+            let allDays = this.getArrDays(this.props.language);
+            this.setState({
+                allDays: allDays
+            });
+        }
+        if (prevProps.doctorId !== this.props.doctorId) {
+            let allDays = this.getArrDays(this.props.language)
+            let res = await getScheduleDoctorByDate(this.props.doctorId, allDays[0].value);
+            this.setState({
+                allAvailableTime: res.data ? res.data : [],
+            });
+        }
+    }
+    capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+    getArrDays = (language) => {
+        let allDays = [];
+        for (let i = 0; i < 7; i++) {
+            let object = {};
+            let labelToday;
+            let today;
+            if (language === LANGUAGES.VI) {
+                if (i === 0) {
+                    labelToday = moment(new Date()).format('DD/MM');
+                    today = `Hôm nay - ${labelToday}`;
+                    object.label = today;
+                } else {
+                    let labelVi = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
+                    object.label = this.capitalizeFirstLetter(labelVi);
+                }
+            } else {
+                if (i === 0) {
+                    labelToday = moment(new Date()).format('DD/MM');
+                    today = `Today - ${labelToday}`;
+                    object.label = today;
+                } else {
+                    object.label = moment(new Date()).add(i, 'days').locale('en').format('ddd - DD/MM');
+                }
+            }
+            object.value = moment(new Date()).add(i, 'days').startOf('day').valueOf();
+            allDays.push(object);
+        }
+        return allDays;
+
+    }
+    handleOnChangeSelect = async (e) => {
+        if (this.props.doctorId && this.props.doctorId !== -1) {
+            let doctorId = this.props.doctorId;
+            let date = e.target.value;
+            let res = await getScheduleDoctorByDate(doctorId, date);
+            if (res && res.errCode === 0) {
+                this.setState({
+                    allAvailableTime: res.data ? res.data : [],
+                });
+            }
+            console.log('res onchange', res);
+        }
+    }
+
+    render() {
+        let { allDays, allAvailableTime } = this.state;
+        let { language } = this.props;
+        return (
+            <div className="doctor-schedule-container">
+                <div className="all-schedule">
+                    <select
+                        onChange={(e) => this.handleOnChangeSelect(e)}
+                    >
+                        {allDays && allDays.length > 0 &&
+                            allDays.map((item, index) => {
+                                return (
+                                    <option key={index} value={item.value}>{item.label}</option>
+                                )
+                            })
+                        }
+                    </select>
+                </div>
+                <div className="all-available-time">
+                    <div className="text-calendar">
+                        <i className="far fa-calendar-alt"><span><FormattedMessage id="patient.detail-doctor.schedule" /></span></i>
+                    </div>
+                    <div className="time-content">
+                        {allAvailableTime && allAvailableTime.length > 0 ?
+                            <>
+                                <div className="time-content-btns">
+
+                                    {allAvailableTime.map((item, index) => {
+                                        let timeDisplay = language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn
+                                        return (
+                                            <button
+                                                className={language === LANGUAGES.VI ? 'btn-vi' : 'btn-en'}
+                                                key={index}>{timeDisplay}</button>
+                                        )
+                                    })}
+                                </div>
+                                <div className="book-free">
+                                    <span>
+                                        <FormattedMessage id="patient.detail-doctor.choose" />
+                                        &#32;
+                                        <i className="far fa-hand-point-up"></i>
+                                        &#32;
+                                        <FormattedMessage id="patient.detail-doctor.book-free" />
+                                    </span>
+                                </div>
+                            </>
+                            :
+                            <div className="no-schedule"><FormattedMessage id="patient.detail-doctor.no-schedule" /></div>
+                        }
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        language: state.app.language,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DoctorSchedule);
