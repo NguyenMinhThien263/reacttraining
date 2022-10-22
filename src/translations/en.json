@@ -21,7 +21,6 @@
     "mentalHealth": "Mental health",
     "dentistry": "Dental examination"
   },
-
   "menu": {
     "admin": {
       "manage-user": "User System",
@@ -68,9 +67,24 @@
   "patient": {
     "detail-doctor": {
       "schedule": "Schedule",
-      "no-schedule":"The doctor doesn't have an appointment during this time, please choose another time!",
-      "choose":"Choose",
-      "book-free":"and booking (free)"
+      "no-schedule": "The doctor doesn't have an appointment during this time, please choose another time!",
+      "choose": "Choose",
+      "book-free": "and booking (free)"
+    }
+  },
+  "admin": {
+    "manage-doctor": {
+      "title": "Create More Information Doctor",
+      "select-doctor": "Choose Doctor",
+      "introduction": "Introduction",
+      "add": "Create Information",
+      "save": "Save Information",
+      "price":"Price",
+      "payment":"Payment",
+      "province":"Province",
+      "name-clinic":"Clinic's name",
+      "address-clinic":"Clinic's address",
+      "note":"Note"
     }
   }
 }
