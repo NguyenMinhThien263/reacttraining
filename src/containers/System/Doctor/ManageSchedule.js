@@ -125,7 +125,6 @@ class ManageSchedule extends Component {
         } else {
             toast.error(" Create schedule fail!");
         }
-        console.log("check res bulk ", res);
     }
     render() {
         let { rangeTime } = this.state;
