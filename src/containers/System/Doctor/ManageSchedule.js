@@ -151,7 +151,8 @@ class ManageSchedule extends Component {
                             <label htmlFor="">
                                 <FormattedMessage id="manage-schedule.choose-date" />
                             </label>
-                            <DatePicker className="form-control"
+                            <DatePicker 
+                            className="form-control"
                                 onChange={this.handleOnChangeDatePicker}
                                 value={this.state.currentDate}
                                 minDate={yesterday}
