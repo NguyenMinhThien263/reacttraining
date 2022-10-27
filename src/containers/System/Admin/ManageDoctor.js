@@ -4,11 +4,12 @@ import { LANGUAGES, CRUD_ACTIONS } from '../../../utils';
 import * as actions from '../../../store/actions';
 import { connect } from 'react-redux';
 import './ManageDoctor.scss';
+import Select from 'react-select';
+import { getDetailInforDoctor } from '../../../services/userService';
+//Markdown library
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
-import Select from 'react-select';
-import { getDetailInforDoctor } from '../../../services/userService';
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 class ManageDoctor extends Component {
 

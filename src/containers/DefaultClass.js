@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { LANGUAGES } from '../../../../utils';
+import { LANGUAGES } from '../../../utils';
 import { FormattedMessage } from 'react-intl';
+// import './DefaultClass.scss';
 class DefaultClass extends Component {
     constructor(props) {
         super(props);
