@@ -64,7 +64,6 @@ class ManageSpecialty extends Component {
             });
         } else {
             toast.error("Add new specialty failed!");
-            console.log('check state at ManageSpecialty', res);
         }
     }
     render() {

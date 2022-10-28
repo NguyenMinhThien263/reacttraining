@@ -91,6 +91,10 @@
       "confirm": "Confirm",
       "cancel": "Cancel",
       "free-fee": "Free Booking"
+    },
+    "detail-specialty": {
+      "hide": "Hide Details",
+      "show": "More Details"
     }
   },
   "admin": {
@@ -105,7 +109,9 @@
       "province": "Province",
       "name-clinic": "Clinic's name",
       "address-clinic": "Clinic's address",
-      "note": "Note"
+      "note": "Note",
+      "specialty": "Specialty's Room",
+      "clinic": "Clinic's Room"
     }
   }
 }

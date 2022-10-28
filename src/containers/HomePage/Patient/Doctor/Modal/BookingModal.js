@@ -113,7 +113,6 @@ class BookingModal extends Component {
         } else {
             toast.error("Booking a new Appointment failed!");
         }
-        console.log('cehck onfirm btn', this.state);
     }
     buildTimeBooking = (dataTime) => {
         let { language } = this.props;
@@ -139,8 +138,7 @@ class BookingModal extends Component {
     render() {
         let { isOpenModal, closeBookingModal, dataTime } = this.props;
         let doctorId = dataTime && !_.isEmpty(dataTime) ? dataTime.doctorId : '';
-        console.log('check state BookingModal', this.state);
-        console.log('check props BookingModal', this.props);
+
         return (
             <div className="">
                 <Modal isOpen={isOpenModal}
@@ -162,6 +160,8 @@ class BookingModal extends Component {
                                     doctorId={doctorId}
                                     isShowDescriptionDoctor={false}
                                     dataTime={dataTime}
+                                    isShowLinkDetail={false}
+                                    isShowPrice={true}
                                 />
                             </div>
                             <div className="row">

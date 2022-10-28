@@ -7,6 +7,7 @@ import './ProfileDoctor.scss';
 import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 class ProfileDoctor extends Component {
     constructor(props) {
@@ -66,7 +67,7 @@ class ProfileDoctor extends Component {
     }
     render() {
         let { dataProfile } = this.state;
-        let { language, isShowDescriptionDoctor, dataTime } = this.props;
+        let { language, isShowDescriptionDoctor, dataTime, isShowLinkDetail, isShowPrice, doctorId } = this.props;
         let nameEn = '';
         let nameVi = '';
         if (dataProfile && dataProfile.positionData) {
@@ -102,21 +103,31 @@ class ProfileDoctor extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="text-price">
-                    <FormattedMessage id="patient.extra-infor-doctor.text-price" />
-                    &#58;
-                    {dataProfile && dataProfile.Doctor_Infor && dataProfile.Doctor_Infor.priceTypeData &&
-                        <NumberFormat
-                            className="currency"
-                            value={language === LANGUAGES.VI ? dataProfile.Doctor_Infor.priceTypeData.valueVi
-                                : language === LANGUAGES.EN ? dataProfile.Doctor_Infor.priceTypeData.valueEn
-                                    : ''}
-                            displayType={'text'}
-                            thousandSeparator=","
-                            suffix={language === LANGUAGES.VI ? 'VND' : '$'}
-                        />
-                    }
-                </div>
+                {isShowLinkDetail === true &&
+                    <div className="view-detail-doctor">
+                        <Link to={`/detail-doctor/${doctorId}`}>
+                            <FormattedMessage id="patient.detail-specialty.show" />
+                        </Link>
+                    </div>
+                }
+                {isShowPrice &&
+                    <div className="text-price">
+                        <FormattedMessage id="patient.extra-infor-doctor.text-price" />
+                        &#58;
+                        {dataProfile && dataProfile.Doctor_Infor && dataProfile.Doctor_Infor.priceTypeData &&
+                            <NumberFormat
+                                className="currency"
+                                value={language === LANGUAGES.VI ? dataProfile.Doctor_Infor.priceTypeData.valueVi
+                                    : language === LANGUAGES.EN ? dataProfile.Doctor_Infor.priceTypeData.valueEn
+                                        : ''}
+                                displayType={'text'}
+                                thousandSeparator=","
+                                suffix={language === LANGUAGES.VI ? 'VND' : '$'}
+                            />
+                        }
+                    </div>
+                }
+
             </div>
 
         );
