@@ -75,7 +75,7 @@
         }
 
         &.medical-facility-img {
-          background-image: url("../../assets/medical-facility/benh-vien-cho-ray.jpg");
+          // background-image: url("../../assets/medical-facility/benh-vien-cho-ray.jpg");
         }
 
         &.outstanding-doctor-img {
@@ -152,6 +152,19 @@
     cursor: pointer;
 
     .specialty-name {
+      padding: 10px 0;
+
+      &:hover {
+        color: #45c3d7;
+      }
+    }
+  }
+}
+.medical-facility {
+  .clinic-child {
+    cursor: pointer;
+
+    .clinic-name {
       padding: 10px 0;
 
       &:hover {
