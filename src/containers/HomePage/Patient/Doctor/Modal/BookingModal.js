@@ -90,7 +90,7 @@ class BookingModal extends Component {
     }
     handleConfirmBooking = async () => {
         //validated
-        let date = new Date(this.state.birthday).getTime();
+        let date = moment(new Date()).startOf('day').valueOf();
         let timeString = this.buildTimeBooking(this.props.dataTime);
         let doctorName = this.buildDoctorName(this.props.dataTime);
         let res = await postPatientBookingAppointment({

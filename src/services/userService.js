@@ -64,11 +64,18 @@ const getDetailSpecialtyById = (data) => {
 const createNewClinic = (data) => {
     return axios.post(`/api/create-new-clinic`, data)
 }
+
 const getAllClinic = (doctorId) => {
     return axios.get(`/api/get-all-clinic`)
 }
 const getDetailClinicById = (data) => {
     return axios.get(`/api/get-detail-clinic-by-id?id=${data.id}`)
+}
+const getListPatientForDoctor = (data) => {
+    return axios.get(`/api/get-list-patient-for-doctor?doctorId=${data.doctorId}&date=${data.date}`)
+}
+const postSendRemedy = (data) => {
+    return axios.post(`/api/send-remedy`, data)
 }
 export {
     handleLoginApi,
@@ -93,4 +100,6 @@ export {
     createNewClinic,
     getAllClinic,
     getDetailClinicById,
+    getListPatientForDoctor,
+    postSendRemedy,
 };
