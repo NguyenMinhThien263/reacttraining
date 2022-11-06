@@ -6,6 +6,8 @@ import { LANGUAGES } from '../../../../utils';
 import { getDetailInforDoctor } from '../../../../services/userService'
 import DoctorSchedule from '../Doctor/DoctorSchedule'
 import DoctorExtraInfor from '../Doctor/DoctorExtraInfor'
+import Comment from '../../../../components/SocialPlugin/Comment.js';
+import LikeAndShare from '../../../../components/SocialPlugin/LikeAndShare.js';
 class DetailDoctor extends Component {
     constructor(props) {
         super(props);
@@ -41,6 +43,8 @@ class DetailDoctor extends Component {
             nameEn = `${detailDoctor.positionData.valueEn}, ${detailDoctor.firstName} ${detailDoctor.lastName}`;
             nameVi = `${detailDoctor.positionData.valueVi}, ${detailDoctor.lastName} ${detailDoctor.firstName}`;
         }
+        let currentURL = process.env.REACT_APP_IS_LOCALHOST === 1 ?
+            "https://chatbot-training-thien263.herokuapp.com/" : window.location.href;
         return (
             <>
                 <HomeHeader isShowBanner={false} />
@@ -61,6 +65,11 @@ class DetailDoctor extends Component {
                                         {detailDoctor.Markdown.description}
                                     </span>
                                 }
+                                <div className="like-share-plugin">
+                                    <LikeAndShare
+                                        dataHref={currentURL}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -82,7 +91,9 @@ class DetailDoctor extends Component {
                         }
                     </div>
                     <div className="comment-doctor">
-
+                        <Comment
+                            dataHref={currentURL}
+                        />
                     </div>
                 </div>
             </>
